@@ -1,17 +1,18 @@
+import Joi from 'joi';
 /**
  * @exports
  * @extends Error
  */
 class ValidationError extends Error {
   /**
-     * @constructor
-     * @param {object} message
-     */
-  constructor(message) {
+   * @constructor
+   * @param {object} message
+  */
+  constructor(message: Joi.ValidationErrorItem[]) {
     super();
     this.message = message;
     this.name = 'E_MISSING_OR_INVALID_PARAMS';
   }
 }
 
-module.exports = ValidationError;
+export default ValidationError;

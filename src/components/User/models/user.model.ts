@@ -1,8 +1,9 @@
-const bcryptjs = require('bcryptjs');
-const { Schema } = require('mongoose');
-const connections = require('../../../config/connection');
+import bcryptjs from 'bcryptjs';
+import { Schema } from 'mongoose';
+import connections from '../../../config/connection';
+import { userModelInterface } from '../interfaces/user.interfaces';
 
-const UserSchema = new Schema({
+const UserSchema: Schema = new Schema({
   firstname: {
     type: String,
     required: true,
@@ -28,14 +29,11 @@ const UserSchema = new Schema({
 }, { timestamps: true });
 
 UserSchema.pre('save', async function (next) {
-  const user = this;
+  const user: userModelInterface = this;
   if (user.isModified('password')) {
     user.password = await bcryptjs.hash(user.password, 12);
   }
   next();
 });
 
-const user = connections.model('user', UserSchema);
-module.exports = {
-  user,
-};
+export default connections.model<userModelInterface>('user', UserSchema);

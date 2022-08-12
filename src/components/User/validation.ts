@@ -1,4 +1,5 @@
-const Validation = require('../validation');
+import Joi from 'joi';
+import Validation from '../validation';
 
 /**
  * @exports
@@ -11,7 +12,7 @@ class UserValidation extends Validation {
      * @returns
      * @memberof UserValidation
      */
-  getUser(data) {
+  getUser(data: string): Joi.ValidationResult {
     return this.Joi
       .object({
         id: this.Joi.objectId(),
@@ -25,7 +26,12 @@ class UserValidation extends Validation {
      * @returns
      * @memberof UserValidation
      */
-  newUser(profile) {
+  newUser(profile: {
+    firstname: string,
+    lastname: string,
+    email: string,
+    password: string
+  }): Joi.ValidationResult {
     return this.Joi
       .object({
         firstname: this.Joi
@@ -54,7 +60,12 @@ class UserValidation extends Validation {
      * @returns
      * @memberof UserValidation
      */
-  updateUser(data) {
+  updateUser(data: {
+    firstname: string,
+    lastname: string,
+    email: string,
+    password: string
+  }): Joi.ValidationResult {
     return this.Joi
       .object({
         firstname: this.Joi
@@ -82,7 +93,7 @@ class UserValidation extends Validation {
      * @returns
      * @memberof UserValidation
      */
-  deleteUser(data) {
+  deleteUser(data: {id: string}): Joi.ValidationResult {
     return this.Joi
       .object({
         id: this.Joi.objectId(),
@@ -90,7 +101,7 @@ class UserValidation extends Validation {
       .validate(data);
   }
 
-  loginUser(data) {
+  loginUser(data: {email: string, password: string}): Joi.ValidationResult {
     return this.Joi
       .object({
         email: this.Joi.string().email(),
@@ -103,7 +114,7 @@ class UserValidation extends Validation {
       .validate(data);
   }
 
-  refreshTokenUser(data) {
+  refreshTokenUser(data: {id: string}): Joi.ValidationResult {
     return this.Joi
       .object({
         id: this.Joi.objectId(),
@@ -111,7 +122,7 @@ class UserValidation extends Validation {
       .validate(data);
   }
 
-  logoutUser(data) {
+  logoutUser(data: {id: string}): Joi.ValidationResult {
     return this.Joi
       .object({
         id: this.Joi.objectId(),
@@ -120,4 +131,4 @@ class UserValidation extends Validation {
   }
 }
 
-module.exports = new UserValidation();
+export default new UserValidation();

@@ -1,16 +1,34 @@
 module.exports = {
-    env: {
-        commonjs: true,
-        es2021: true,
-        node: true,
+  env: {
+    commonjs: true,
+    es2021: true,
+    node: true,
+  },
+  extends: [
+    'airbnb-base',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
+  plugins: [
+    '@typescript-eslint',
+  ],
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        'no-undef': 'off',
+      },
     },
-    extends: [
-        'airbnb-base',
+  ],
+  rules: {
+    '@typescript-eslint/typedef': [
+      'error',
+      {
+        arrowParameter: true,
+        variableDeclaration: true,
+      },
     ],
-    parserOptions: {
-        ecmaVersion: 13,
-    },
-    rules: {
-        indent: ['error', 2],
-    },
+  },
 };
